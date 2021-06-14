@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post as ModelsPost;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules\Exists;
 
@@ -19,19 +20,22 @@ Route::get('/', function () {
 });
 
 Route::get('/posts/{post}', function ($slug) {
-    $path = __DIR__ . "/../resources/posts/{$slug}.html";
 
-    ddd($path);
-    
-    if(!file_exists($path)){
-        // ddd('file does not exist');
-        // abort(404);
-        return redirect('/');
-    }
+    $post = ModelsPost::find($slug);
 
-    $post = file_get_contents($path);
-
-    return view('post', [
-        'post' => $post
+    return view("post", [
+        "post" -> $post
     ]);
+
+    // if (!file_exists($path = __DIR__ . "/../resources/posts/{$slug}.html")) {
+    //     // abort(404);
+    //     return redirect('/');
+    // }
+
+    // $post = cache()->remember("posts.{$slug}", 5, function () use ($path) {
+    //     var_dump('hoi');
+    //     return file_get_contents($path);
+    // });
+
+    // return view('post', ['post' => $post]);
 })->where('post', '[A-z_\-]+');
