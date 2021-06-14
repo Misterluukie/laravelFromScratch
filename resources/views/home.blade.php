@@ -48,6 +48,7 @@
             Maecenas lobortis ullamcorper sapien, ac congue turpis porttitor a.
         </p>
     </article> --}}
+    
     <?php foreach ($posts as $post) : ?>
 
     <article>
