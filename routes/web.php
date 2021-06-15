@@ -2,6 +2,7 @@
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rules\Exists;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
@@ -22,12 +23,11 @@ Route::get('/', function () {
     //     'posts' => Post::all()
     // ]);
 
-    $document = YamlFrontMatter::parseFile(
-        resource_path('posts/my-fourth-post.html')
-    );
+    $posts = Post::all();
 
-    ddd($document);
-
+    return view('home', [
+        'posts' => $posts
+    ]);
 });
 
 Route::get('/posts/{post}', function ($slug) {
@@ -35,5 +35,4 @@ Route::get('/posts/{post}', function ($slug) {
     return view('post', [
         'post' => Post::find($slug)
     ]);
-
 })->where('post', '[A-z_\-]+');

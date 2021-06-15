@@ -10,7 +10,8 @@
 </head>
 
 <body>
-    <?= $post; ?> 
+    <h1><?= $post->title; ?> </h1>
+    <?= $post->body; ?>
     <a href="/">Go back</a>
 </body>
 
